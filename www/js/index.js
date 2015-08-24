@@ -46,7 +46,8 @@ var app = {
 
         var pushNotification = window.plugins.pushNotification;
         // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"sapewady","ecb":"app.onNotificationGCM"});
-        pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"164285356943","ecb":"app.onNotificationGCM"});
+        pushNotification.unregister();
+        pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"myandroidpush-1047","ecb":"app.onNotificationGCM"});
 
         console.log('Received Event: ' + id);
     },
