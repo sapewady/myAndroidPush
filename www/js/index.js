@@ -37,6 +37,7 @@ var app = {
         // app.handleLogin();
         // $.mobile.changePage("login.html");
         $("#loginForm").on("submit",app.handleLogin);
+
 //        $("#username").val(window.localStorage["username"]);
 //        $("#password").val(window.localStorage["password"]);
     },
@@ -44,7 +45,7 @@ var app = {
     handleLogin : function() {
         var form = $("#loginForm");
         //disable the button so we can't resubmit while we wait
-        $("#submitButton",form).attr("disabled","disabled");
+        $("#submitButton",form).attr("disabled",true);
         var u = $("#username", form).val();
         var p = $("#password", form).val();
 
@@ -89,7 +90,7 @@ var app = {
 
     // result contains any message sent from the plugin call
     successHandler: function(result) {
-        navigator.notification.alert('Callback Success! Result = '+result, function() {});
+        // navigator.notification.alert('Callback Success! Result = '+result, function() {});
     },
 
     errorHandler:function(error) {
@@ -102,10 +103,15 @@ var app = {
             case 'registered':
                 if ( e.regid.length > 0 )
                 {
-                    console.log("Regid " + e.regid);
+                    // console.log("Regid " + e.regid);
                     window.localStorage["deviceid"] = e.regid;
-                    navigator.notification.alert(e.regid, function() {});
+                    // navigator.notification.alert(e.regid, function() {});
+                    u = window.localStorage["username"];
+                    $.get("http://sysparking.tafsir.my/user/wsaddphone?username="+u+"&deviceid="+e.regid+"", function(res) {
+                        console.log(res)
+                        navigator.notification.alert("GCM updated", function() {});
 
+                    });    
                     //alert('registration id = '+e.regid);
                 }
             break;
