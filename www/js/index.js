@@ -18,7 +18,7 @@
  */
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function() {        
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -33,33 +33,67 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        // app.receivedEvent('deviceready');
+        // app.handleLogin();
+        // $.mobile.changePage("login.html");
+        $("#loginForm").on("submit",app.handleLogin);
+//        $("#username").val(window.localStorage["username"]);
+//        $("#password").val(window.localStorage["password"]);
     },
+
+    handleLogin : function() {
+        var form = $("#loginForm");
+        //disable the button so we can't resubmit while we wait
+        $("#submitButton",form).attr("disabled","disabled");
+        var u = $("#username", form).val();
+        var p = $("#password", form).val();
+
+        if(u != '' && p!= '') {
+            $.get("http://sysparking.tafsir.my/site/wslogin?username="+u+"&password="+p+"", function(res) {
+                if(res.status == true) {
+                    //store
+                    window.localStorage["username"] = u;
+                    window.localStorage["password"] = p;
+                    
+                    navigator.notification.alert("login success", function() {});
+                    var pushNotification = window.plugins.pushNotification;
+                    pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
+
+                    //window.location = 'http://sysparking.tafsir.my';
+                    //$.mobile.changePage("some.html");
+                } else {
+                    navigator.notification.alert("Invalid username/password", function() {});
+                }
+                $("#submitButton").removeAttr("disabled");
+            },"json");
+        }
+        return false;
+    },
+
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
+        //navigator.notification.alert("Your login failed", function() {});
+        //$.mobile.changePage("login.html");
+        // alert('Received Event: ' + id);
+/*        var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        receivedElement.setAttribute('style', 'display:block;');*/
 
-        var pushNotification = window.plugins.pushNotification;
-        // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"sapewady","ecb":"app.onNotificationGCM"});
-        // pushNotification.unregister();
-        // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"myandroidpush-1047","ecb":"app.onNotificationGCM"});
-        pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
+        //var pushNotification = window.plugins.pushNotification;
+        //pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
 
-        console.log('Received Event: ' + id);
     },
 
     // result contains any message sent from the plugin call
     successHandler: function(result) {
-        alert('Callback Success! Result = '+result)
+        navigator.notification.alert('Callback Success! Result = '+result, function() {});
     },
 
     errorHandler:function(error) {
-        alert(error);
+        console.log(error);
     },
 
     onNotificationGCM: function(e) {
@@ -69,21 +103,24 @@ var app = {
                 if ( e.regid.length > 0 )
                 {
                     console.log("Regid " + e.regid);
-                    alert('registration id = '+e.regid);
+                    window.localStorage["deviceid"] = e.regid;
+                    navigator.notification.alert(e.regid, function() {});
+
+                    //alert('registration id = '+e.regid);
                 }
             break;
  
             case 'message':
               // this is the actual push notification. its format depends on the data model from the push server
-              alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+                console.log('message = '+e.message+' msgcnt = '+e.msgcnt);
             break;
  
             case 'error':
-              alert('GCM error = '+e.msg);
+                console.log('GCM error = '+e.msg);
             break;
  
             default:
-              alert('An unknown GCM event has occurred');
+                console.log('An unknown GCM event has occurred');
               break;
         }
     }

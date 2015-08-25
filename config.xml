@@ -1,6 +1,6 @@
 <?xml version='1.4' encoding='utf-8'?>
 <widget id="com.pushapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Push Notification</name>
+    <name>Parking</name>
     <description>
         Hello World sample application that responds to the deviceready event.
     </description>
@@ -40,7 +40,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
-    <gap:plugin name="com.phonegap.plugins.pushplugin " />
+    <gap:plugin name="com.phonegap.plugins.pushplugin" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
