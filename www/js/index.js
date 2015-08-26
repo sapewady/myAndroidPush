@@ -100,7 +100,7 @@ var app = {
     },
 
     errorHandler:function(error) {
-        console.log(error);
+        navigator.notification.alert(error, function() {});
     },
 
     onNotificationGCM: function(e) {
@@ -124,15 +124,17 @@ var app = {
  
             case 'message':
               // this is the actual push notification. its format depends on the data model from the push server
-                console.log('message = '+e.message+' msgcnt = '+e.msgcnt);
+                // console.log('message = '+e.message+' msgcnt = '+e.msgcnt);
+                navigator.notification.alert(e.message, function() {});
+
             break;
  
             case 'error':
-                console.log('GCM error = '+e.msg);
+                navigator.notification.alert('GCM error = '+e.msg, function() {});
             break;
  
             default:
-                console.log('An unknown GCM event has occurred');
+                navigator.notification.alert('An unknown GCM event has occurred', function() {});
               break;
         }
     }
