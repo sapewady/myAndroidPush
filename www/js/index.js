@@ -33,10 +33,15 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+       // $("#username").val('ok kot bro');
+       //window.open('http://sysparking.tafsir.my');
+        // cordova.InAppBrowser.open('http://sysparking.tafsir.my', '_blank', 'location=yes');
+
+        //ref.addEventListener('loadstart', function(event) { alert(event.url); });
 //                    window.location = 'http://sysparking.tafsir.my';
 
 
-/*        $( "html" ).load( "http://sysparking.tafsir.my", function() {
+/*        $( "body" ).load( "http://sysparking.tafsir.my", function() {
           alert( "Load was performed." );
         });*/
 /*        $.get('http://sysparking.tafsir.my',function(res){
@@ -124,7 +129,15 @@ var app = {
                     $.get("http://sysparking.tafsir.my/user/wsaddphone?terus=1&username="+u+"&deviceid="+e.regid+"", function(res) {
                         console.log(res)
                         navigator.notification.alert("GCM updated", function() {});
-                        window.location = 'http://sysparking.tafsir.my/user/myaccount';
+                        //window.open('http://sysparking.tafsir.my/user/myaccount');
+
+                        var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
+                        ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
+                        ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
+                        ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
+                        ref.addEventListener('exit', function(event) { alert(event.type); });
+
+
                     });    
                     //alert('registration id = '+e.regid);
                 }
