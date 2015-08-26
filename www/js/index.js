@@ -33,6 +33,15 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+//                    window.location = 'http://sysparking.tafsir.my';
+
+
+/*        $( "html" ).load( "http://sysparking.tafsir.my", function() {
+          alert( "Load was performed." );
+        });*/
+/*        $.get('http://sysparking.tafsir.my',function(res){
+            $('#page-login').empty().html(res);            
+        })*/
         // app.receivedEvent('deviceready');
         // app.handleLogin();
         // $.mobile.changePage("login.html");
@@ -65,7 +74,6 @@ var app = {
                     var pushNotification = window.plugins.pushNotification;
                     pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
 
-                    //window.location = 'http://sysparking.tafsir.my';
                     //$.mobile.changePage("some.html");
                 } else {
                     navigator.notification.alert("Invalid username/password", function() {});
@@ -116,7 +124,7 @@ var app = {
                     $.get("http://sysparking.tafsir.my/user/wsaddphone?terus=1&username="+u+"&deviceid="+e.regid+"", function(res) {
                         console.log(res)
                         navigator.notification.alert("GCM updated", function() {});
-                        //window.location = 'http://sysparking.tafsir.my';
+                        window.location = 'http://sysparking.tafsir.my';
                     });    
                     //alert('registration id = '+e.regid);
                 }
