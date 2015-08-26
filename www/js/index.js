@@ -20,6 +20,7 @@ var app = {
     // Application Constructor
     initialize: function() {        
         this.bindEvents();
+
     },
     // Bind Event Listeners
     //
@@ -41,9 +42,23 @@ var app = {
             $("#password").val(p);
             app.handleLogin();
         }
+
+        $('#forgot,#signup').fadeIn('slow');
+        $('#forgot,#signup').on('click',function(e){
+            e.preventDefault();
+            var ref = window.open(this, '_blank', 'location=no');
+            ref.addEventListener('loadstart', function(event) {  });
+            ref.addEventListener('loadstop', function(event) {  });
+            ref.addEventListener('loaderror', function(event) {  });
+            ref.addEventListener('exit', function(event) {  });  
+            
+        });
+
     },
 
     handleLogin : function() {
+        $('#submitButton').val('Checking...');
+        $('#submitButton').attr('disable',true);
         var form = $("#loginForm");
         //disable the button so we can't resubmit while we wait
         $('[type="submit"]').button('disable'); 
@@ -58,7 +73,7 @@ var app = {
                     window.localStorage["username"] = u;
                     window.localStorage["password"] = p;
                     
-                    navigator.notification.alert("login success", function() {});
+                    //navigator.notification.alert("login success", function() {});
                     var pushNotification = window.plugins.pushNotification;
                     pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
 
@@ -84,7 +99,7 @@ var app = {
     },
 
     errorHandler:function(error) {
-        navigator.notification.alert(error, function() {});
+        // navigator.notification.alert(error, function() {});
     },
 
     onNotificationGCM: function(e) {
@@ -98,17 +113,13 @@ var app = {
                     // navigator.notification.alert(e.regid, function() {});
                     u = window.localStorage["username"];
                     $.get("http://sysparking.tafsir.my/user/wsaddphone?username="+u+"&deviceid="+e.regid+"", function(res) {
-                        // console.log(res)
-                        navigator.notification.alert("GCM updated",function(btn){
+                        // navigator.notification.alert("GCM updated",function(btn){
                             var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
                             ref.addEventListener('loadstart', function(event) {  });
                             ref.addEventListener('loadstop', function(event) {  });
                             ref.addEventListener('loaderror', function(event) {  });
                             ref.addEventListener('exit', function(event) {  });                            
-                        },"Notification", "OK");
-
-
-
+                        //},"Notification", "OK");
                     });    
                     //alert('registration id = '+e.regid);
                 }

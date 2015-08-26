@@ -48,7 +48,9 @@
         <script type="text/javascript">
             app.initialize();
         </script>
-
+        <style type="text/css">
+        #forgot,#signup{display: none;}
+        </style>
         <title>Hello World</title>
     </head>
     <body>
@@ -67,7 +69,11 @@
             <input type="password" name="password" id="password" value="" placeholder="Password" />
             </div>
 
-            <input type="submit"  value="Login" id="submitButton">
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <input class="ui-btn ui-btn-inline ui-btn-active" type="submit"  value="Login" id="submitButton">
+                <a id="forgot" data-theme="a" href="http://sysparking.tafsir.my/index.php/site/request-password-reset" class="ui-btn ui-btn-inline">Forgot?</a>
+                <a id="signup" data-theme="b" href="http://sysparking.tafsir.my/index.php/site/signup" class="ui-btn ui-btn-inline">Sign Up</a>
+            </fieldset>
         </form>    
 
 <!-- <a href="#" onclick="window.open('http://sysparking.tafsir.my','_blank','location=yes','closebuttoncaption=Return');">Click Here</a>         -->
