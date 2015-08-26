@@ -40,8 +40,8 @@ var app = {
         var u = window.localStorage["username"];
         var p = window.localStorage["password"];
         if(u != '' && p!= '') {
-            $("#username", form).val(u);
-            $("#password", form).val(p);
+            $("#username").val(u);
+            $("#password").val(p);
             app.handleLogin();
         }
     },
@@ -49,9 +49,10 @@ var app = {
     handleLogin : function() {
         var form = $("#loginForm");
         //disable the button so we can't resubmit while we wait
-        $("#submitButton",form).attr("disabled",true);
-        var u = $("#username", form).val();
-        var p = $("#password", form).val();
+        $('[type="submit"]').button('disable'); 
+        $('[type="submit"]').button('refresh');
+        var u = $("#username").val();
+        var p = $("#password").val();
 
         if(u != '' && p!= '') {
             $.get("http://sysparking.tafsir.my/site/wslogin?terus=0&username="+u+"&password="+p+"", function(res) {
@@ -69,7 +70,8 @@ var app = {
                 } else {
                     navigator.notification.alert("Invalid username/password", function() {});
                 }
-                $("#submitButton").removeAttr("disabled");
+                $('[type="submit"]').button('enable'); 
+                $('[type="submit"]').button('refresh'); 
             },"json");
         }
         return false;
