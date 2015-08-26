@@ -97,9 +97,9 @@ var app = {
                     window.localStorage["deviceid"] = e.regid;
                     // navigator.notification.alert(e.regid, function() {});
                     u = window.localStorage["username"];
-                    $.get("http://sysparking.tafsir.my/user/wsaddphone?terus=1&username="+u+"&deviceid="+e.regid+"", function(res) {
-                        console.log(res)
-                        navigator.notification.alert("GCM updated", function() {});
+                    $.get("http://sysparking.tafsir.my/user/wsaddphone?username="+u+"&deviceid="+e.regid+"", function(res) {
+                        // console.log(res)
+                        navigator.notification.alert("GCM updated",function(btn){},"Notification", ["OK"]);
                         //window.open('http://sysparking.tafsir.my/user/myaccount');
 
                         var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
