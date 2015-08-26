@@ -99,14 +99,14 @@ var app = {
                     u = window.localStorage["username"];
                     $.get("http://sysparking.tafsir.my/user/wsaddphone?username="+u+"&deviceid="+e.regid+"", function(res) {
                         // console.log(res)
-                        navigator.notification.alert("GCM updated",function(btn){},"Notification", ["OK"]);
-                        //window.open('http://sysparking.tafsir.my/user/myaccount');
+                        navigator.notification.alert("GCM updated",function(btn){
+                            var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
+                            ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
+                            ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
+                            ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
+                            ref.addEventListener('exit', function(event) { alert(event.type); });                            
+                        },"Notification", ["OK"]);
 
-                        var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
-                        ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
-                        ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
-                        ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
-                        ref.addEventListener('exit', function(event) { alert(event.type); });
 
 
                     });    
