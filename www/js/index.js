@@ -70,10 +70,10 @@ var app = {
                 } else {
                     navigator.notification.alert("Invalid username/password", function() {});
                 }
-                $('[type="submit"]').button('enable'); 
-                $('[type="submit"]').button('refresh'); 
             },"json");
         }
+        $('[type="submit"]').button('enable'); 
+        $('[type="submit"]').button('refresh'); 
         return false;
     },
 
