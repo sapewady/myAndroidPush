@@ -33,23 +33,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-       // $("#username").val('ok kot bro');
-       //window.open('http://sysparking.tafsir.my');
-        // cordova.InAppBrowser.open('http://sysparking.tafsir.my', '_blank', 'location=yes');
-
-        //ref.addEventListener('loadstart', function(event) { alert(event.url); });
-//                    window.location = 'http://sysparking.tafsir.my';
-
-
-/*        $( "body" ).load( "http://sysparking.tafsir.my", function() {
-          alert( "Load was performed." );
-        });*/
-/*        $.get('http://sysparking.tafsir.my',function(res){
-            $('#page-login').empty().html(res);            
-        })*/
-        // app.receivedEvent('deviceready');
-        // app.handleLogin();
-        // $.mobile.changePage("login.html");
         $("#loginForm").on("submit",app.handleLogin);
         var u = window.localStorage["username"];
         var p = window.localStorage["password"];
@@ -92,19 +75,7 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        //navigator.notification.alert("Your login failed", function() {});
-        //$.mobile.changePage("login.html");
-        // alert('Received Event: ' + id);
-/*        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');*/
-
-        //var pushNotification = window.plugins.pushNotification;
-        //pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
-
+        
     },
 
     // result contains any message sent from the plugin call
