@@ -101,11 +101,11 @@ var app = {
                         // console.log(res)
                         navigator.notification.alert("GCM updated",function(btn){
                             var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
-                            ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
-                            ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
-                            ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
-                            ref.addEventListener('exit', function(event) { alert(event.type); });                            
-                        },"Notification", ["OK"]);
+                            ref.addEventListener('loadstart', function(event) {  });
+                            ref.addEventListener('loadstop', function(event) {  });
+                            ref.addEventListener('loaderror', function(event) {  });
+                            ref.addEventListener('exit', function(event) {  });                            
+                        },"Notification", "OK");
 
 
 
