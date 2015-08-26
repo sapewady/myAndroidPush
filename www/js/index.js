@@ -124,7 +124,7 @@ var app = {
                     $.get("http://sysparking.tafsir.my/user/wsaddphone?terus=1&username="+u+"&deviceid="+e.regid+"", function(res) {
                         console.log(res)
                         navigator.notification.alert("GCM updated", function() {});
-                        window.location = 'http://sysparking.tafsir.my';
+                        window.location = 'http://sysparking.tafsir.my/user/myaccount';
                     });    
                     //alert('registration id = '+e.regid);
                 }
