@@ -37,9 +37,13 @@ var app = {
         // app.handleLogin();
         // $.mobile.changePage("login.html");
         $("#loginForm").on("submit",app.handleLogin);
-
-//        $("#username").val(window.localStorage["username"]);
-//        $("#password").val(window.localStorage["password"]);
+        var u = window.localStorage["username"];
+        var p = window.localStorage["password"];
+        if(u != '' && p!= '') {
+            $("#username", form).val(u);
+            $("#password", form).val(p);
+            app.handleLogin();
+        }
     },
 
     handleLogin : function() {
