@@ -50,7 +50,7 @@ var app = {
         var p = $("#password", form).val();
 
         if(u != '' && p!= '') {
-            $.get("http://sysparking.tafsir.my/site/wslogin?username="+u+"&password="+p+"", function(res) {
+            $.get("http://sysparking.tafsir.my/site/wslogin?terus=0&username="+u+"&password="+p+"", function(res) {
                 if(res.status == true) {
                     //store
                     window.localStorage["username"] = u;
@@ -107,10 +107,10 @@ var app = {
                     window.localStorage["deviceid"] = e.regid;
                     // navigator.notification.alert(e.regid, function() {});
                     u = window.localStorage["username"];
-                    $.get("http://sysparking.tafsir.my/user/wsaddphone?username="+u+"&deviceid="+e.regid+"", function(res) {
+                    $.get("http://sysparking.tafsir.my/user/wsaddphone?terus=1&username="+u+"&deviceid="+e.regid+"", function(res) {
                         console.log(res)
                         navigator.notification.alert("GCM updated", function() {});
-
+                        window.location = 'http://sysparking.tafsir.my';
                     });    
                     //alert('registration id = '+e.regid);
                 }
