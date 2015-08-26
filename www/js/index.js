@@ -57,7 +57,7 @@ var app = {
     },
 
     handleLogin : function() {
-        $('#submitButton').val('Checking...');
+        // $('#submitButton').val('Checking...');
         $('#submitButton').attr('disable',true);
         var form = $("#loginForm");
         //disable the button so we can't resubmit while we wait
@@ -85,6 +85,8 @@ var app = {
         }
         $('[type="submit"]').button('enable'); 
         $('[type="submit"]').button('refresh'); 
+        $('#submitButton').attr('disable',false);
+
         return false;
     },
 
