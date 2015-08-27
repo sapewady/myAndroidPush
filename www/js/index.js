@@ -22,126 +22,24 @@ var app = {
         this.bindEvents();
 
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        $("#loginForm").on("submit",app.handleLogin);
-        var u = window.localStorage["username"];
-        var p = window.localStorage["password"];
-        if(u != '' && p!= '') {
-            $("#username").val(u);
-            $("#password").val(p);
-            app.handleLogin();
-        }
 
-        $('#forgot,#signup').fadeIn('slow');
-        $('#forgot,#signup').on('click',function(e){
-            e.preventDefault();
-            var ref = window.open(this, '_blank', 'location=no');
+    onDeviceReady: function() {
+            var ref = window.open('https://members.zenithgolds.com', '_blank', 'location=no');
             ref.addEventListener('loadstart', function(event) {  });
             ref.addEventListener('loadstop', function(event) {  });
             ref.addEventListener('loaderror', function(event) {  });
             ref.addEventListener('exit', function(event) {  });  
             
-        });
-
     },
 
-    handleLogin : function() {
-        // $('#submitButton').val('Checking...');
-        $('#submitButton').attr('disable',true);
-        var form = $("#loginForm");
-        //disable the button so we can't resubmit while we wait
-        $('[type="submit"]').button('disable'); 
-        $('[type="submit"]').button('refresh');
-        var u = $("#username").val();
-        var p = $("#password").val();
 
-        if(u != '' && p!= '') {
-            $.get("http://sysparking.tafsir.my/site/wslogin?terus=0&username="+u+"&password="+p+"", function(res) {
-                if(res.status == true) {
-                    //store
-                    window.localStorage["username"] = u;
-                    window.localStorage["password"] = p;
-                    
-                    //navigator.notification.alert("login success", function() {});
-                    var pushNotification = window.plugins.pushNotification;
-                    pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"450207798539","ecb":"app.onNotificationGCM"});
-
-                    //$.mobile.changePage("some.html");
-                } else {
-                    navigator.notification.alert("Invalid username/password", function() {});
-                }
-            },"json");
-        }
-        $('[type="submit"]').button('enable'); 
-        $('[type="submit"]').button('refresh'); 
-        $('#submitButton').attr('disable',false);
-
-        return false;
-    },
-
-    // Update DOM on a Received Event
     receivedEvent: function(id) {
         
     },
 
-    // result contains any message sent from the plugin call
-    successHandler: function(result) {
-        // navigator.notification.alert('Callback Success! Result = '+result, function() {});
-    },
-
-    errorHandler:function(error) {
-        // navigator.notification.alert(error, function() {});
-    },
-
-    onNotificationGCM: function(e) {
-        switch( e.event )
-        {
-            case 'registered':
-                if ( e.regid.length > 0 )
-                {
-                    // console.log("Regid " + e.regid);
-                    window.localStorage["deviceid"] = e.regid;
-                    // navigator.notification.alert(e.regid, function() {});
-                    u = window.localStorage["username"];
-                    $.get("http://sysparking.tafsir.my/user/wsaddphone?username="+u+"&deviceid="+e.regid+"", function(res) {
-                        // navigator.notification.alert("GCM updated",function(btn){
-                            var ref = window.open('http://sysparking.tafsir.my/user/myaccount', '_blank', 'location=no');
-                            ref.addEventListener('loadstart', function(event) {  });
-                            ref.addEventListener('loadstop', function(event) {  });
-                            ref.addEventListener('loaderror', function(event) {  });
-                            ref.addEventListener('exit', function(event) {  });                            
-                        //},"Notification", "OK");
-                    });    
-                    //alert('registration id = '+e.regid);
-                }
-            break;
- 
-            case 'message':
-              // this is the actual push notification. its format depends on the data model from the push server
-                // console.log('message = '+e.message+' msgcnt = '+e.msgcnt);
-                navigator.notification.alert(e.message, function() {});
-
-            break;
- 
-            case 'error':
-                navigator.notification.alert('GCM error = '+e.msg, function() {});
-            break;
- 
-            default:
-                navigator.notification.alert('An unknown GCM event has occurred', function() {});
-              break;
-        }
-    }
 
 };
